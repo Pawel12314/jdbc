@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Practice Suite">
+    <test name="Test Basics 1">
+        <parameter name="initial" value="1000"/>
+        <parameter name="tosmall" value="200"/>
+        <classes>
+            <class name="BankTest"/>
+        </classes>
+    </test> <!-- Test -->
+    <test name="Test Basics 2">
+        <parameter name="addit" value="300"/>
+        <classes>
+            <class name="AccountTest">
+
+            </class>
+        </classes>
+
+    </test> <!-- Test -->
+    <test name="Test Basics 1_1">
+        <parameter name="initial" value="300"/>
+        <classes>
+            <class name="BankTest">
+                <methods>
+                    <include name="testWD" />
+                </methods>
+            </class>
+        </classes>
+
+    </test> <!-- Test -->
+</suite> <!-- Suite -->
