@@ -22,28 +22,29 @@ public interface IBank {
     /**
      * Dodaje srodki do konta.
      *
-     * @param id
+     * @param id id konta
      * @param amount srodki
-     * @throws AccountIdException, gdy id konta jest nieprawidlowe
+     * @throws IBank.AccountIdException gdy id konta jest nieprawidlowe
      */
     void deposit(Long id, BigDecimal amount);
 
     /**
      * Zwraca ilosc srodkow na koncie.
      *
-     * @param id
+     * @param id id konta
      * @return srodki
-     * @throws AccountIdException, gdy id konta jest nieprawidlowe
+     * @throws IBank.AccountIdException gdy id konta jest nieprawidlowe
      */
-    BigDecimal getBalance(Long id);
 
+    BigDecimal getBalance(Long id);
+    int getAccountCount();
     /**
      * Pobiera srodki z konta.
      *
-     * @param id
+     * @param id id konta
      * @param amount srodki
-     * @throws AccountIdException, gdy id konta jest nieprawidlowe
-     * @throws InsufficientFundsException, gdy srodki na koncie nie sa
+     * @throws IBank.AccountIdException gdy id konta jest nieprawidlowe
+     * @throws IBank.InsufficientFundsException gdy srodki na koncie nie sa
      * wystarczajace do wykonania operacji
      */
     void withdraw(Long id, BigDecimal amount);
@@ -51,14 +52,26 @@ public interface IBank {
     /**
      * Przelewa srodki miedzy kontami.
      *
-     * @param idSource
-     * @param idDestination
+     * @param idSource id konta
+     * @param idDestination id konta
      * @param amount srodki
-     * @throws AccountIdException, gdy id konta jest nieprawidlowe
-     * @throws InsufficientFundsException, gdy srodki na koncie nie sa
+     * @throws IBank.AccountIdException gdy id konta jest nieprawidlowe
+     * @throws IBank.InsufficientFundsException gdy srodki na koncie nie sa
      * wystarczajace do wykonania operacji
      */
     void transfer(Long idSource, Long idDestination, BigDecimal amount);
-    int getAccountCount();
 
+    class InsufficientFundsException extends RuntimeException {
+        public InsufficientFundsException(String msg)
+        {
+            super(msg);
+        }
+    };
+
+    class AccountIdException extends RuntimeException {
+        public AccountIdException(String msg)
+        {
+            super(msg);
+        }
+    };
 }

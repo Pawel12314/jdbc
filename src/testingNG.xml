@@ -7,7 +7,7 @@
         <classes>
             <class name="BankTest"/>
         </classes>
-    </test> <!-- Test -->
+    </test>
     <test name="Test Basics 2">
         <parameter name="addit" value="300"/>
         <classes>
@@ -16,9 +16,10 @@
             </class>
         </classes>
 
-    </test> <!-- Test -->
+    </test>
+    <!--
     <test name="Test Basics 1_1">
-        <parameter name="initial" value="300"/>
+        <parameter name="initial" value="200"/>
         <classes>
             <class name="BankTest">
                 <methods>
@@ -27,5 +28,7 @@
             </class>
         </classes>
 
-    </test> <!-- Test -->
-</suite> <!-- Suite -->
+    </test>
+    -->
+
+</suite>

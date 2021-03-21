@@ -1,17 +1,14 @@
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+//import org.junit.jupiter.api.BeforeAll;
+//import org.junit.jupiter.api.BeforeEach;
 
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
-import java.util.function.BiFunction;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.testng.Assert.fail;
+//import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+//import static org.junit.jupiter.api.Assertions.assertThrows;
+//import static org.testng.Assert.fail;
 
 public class BankTest {
 
@@ -68,12 +65,12 @@ public class BankTest {
         assert b.getAccountCount()>0;
     }
 
-    @Parameters({ "initial" })
+    //@Parameters({ "initial" })
 
     @Test
-    public void testWD(long initial)
+    public void testWD()
     {
-        BigDecimal initBD = new BigDecimal(initial);
+        BigDecimal initBD = new BigDecimal(1000);
         Long x = b.findAccount(name,address);
         b.deposit(x,initBD);
         BigDecimal wd = new BigDecimal(500);
@@ -84,22 +81,22 @@ public class BankTest {
 
         assert b.getBalance(x).compareTo(amount.subtract(wd))==0;
     }
-    @Parameters({ "tosmall" })
-    @Test
-    public void testWDminus(long tosmall)
+    //@Parameters({ "tosmall" })
+    @Test(expectedExceptions = BankImpl.InsufficientFundsException.class)
+    public void testWDminus()
     {
-        BigDecimal initBD = new BigDecimal(tosmall);
+        BigDecimal initBD = new BigDecimal(200);
         Long x = b.findAccount(name,address);
         b.deposit(x,initBD);
         BigDecimal wd = new BigDecimal(500);
-
+        b.withdraw(x,wd);
         //Throwable thrown = assertThrows(BankImpl.InsufficientFundsException, () -> foo.doStuff());
         //assertDoesNotThrow(()->b.getBalance(x));
 
-        Throwable thrown = assertThrows(BankImpl.InsufficientFundsException.class,()->b.withdraw(x,wd));
+       // Throwable thrown = assertThrows(BankImpl.InsufficientFundsException.class,()->b.withdraw(x,wd));
         //BigDecimal amount
 
-        assert (thrown instanceof BankImpl.InsufficientFundsException);
+       // assert (thrown instanceof BankImpl.InsufficientFundsException);
 
 
 

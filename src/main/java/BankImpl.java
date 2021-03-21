@@ -35,7 +35,7 @@ public class BankImpl implements IBank {
      * @param address adres właściciela
      * @return id konta lub null, gdy brak konta o podanych parametrach
      */
-    public Long findAccount(String name, String address)
+    public Long findAccount(String name, String address)// throws AccountIdException
     {
         for(Long x : accounts.keySet())
         {
@@ -53,11 +53,11 @@ public class BankImpl implements IBank {
     /**
      * Dodaje srodki do konta.
      *
-     * @param id
+     * @param id id konta
      * @param amount srodki
-     * @throws AccountIdException, gdy id konta jest nieprawidlowe
+     * @throws IBank.AccountIdException gdy id konta jest nieprawidlowe
      */
-    public void deposit(Long id, BigDecimal amount)
+    public void deposit(Long id, BigDecimal amount)// throws  AccountIdException
     {
         try
         {
@@ -76,9 +76,9 @@ public class BankImpl implements IBank {
     /**
      * Zwraca ilosc srodkow na koncie.
      *
-     * @param id
+     * @param id id konta
      * @return srodki
-     * @throws AccountIdException, gdy id konta jest nieprawidlowe
+     * @throws IBank.AccountIdException gdy id konta jest nieprawidlowe
      */
     public BigDecimal getBalance(Long id)
     {
@@ -96,10 +96,10 @@ public class BankImpl implements IBank {
     /**
      * Pobiera srodki z konta.
      *
-     * @param id
+     * @param id id konta
      * @param amount srodki
-     * @throws AccountIdException, gdy id konta jest nieprawidlowe
-     * @throws InsufficientFundsException, gdy srodki na koncie nie sa
+     * @throws IBank.AccountIdException gdy id konta jest nieprawidlowe
+     * @throws IBank.InsufficientFundsException gdy srodki na koncie nie sa
      * wystarczajace do wykonania operacji
      */
     public void withdraw(Long id, BigDecimal amount)
@@ -125,11 +125,11 @@ public class BankImpl implements IBank {
     /**
      * Przelewa srodki miedzy kontami.
      *
-     * @param idSource
-     * @param idDestination
+     * @param idSource id konta
+     * @param idDestination id konta
      * @param amount srodki
-     * @throws AccountIdException, gdy id konta jest nieprawidlowe
-     * @throws InsufficientFundsException, gdy srodki na koncie nie sa
+     * @throws IBank.AccountIdException gdy id konta jest nieprawidlowe
+     * @throws IBank.InsufficientFundsException gdy srodki na koncie nie sa
      * wystarczajace do wykonania operacji
      */
     public void transfer(Long idSource, Long idDestination, BigDecimal amount)
@@ -150,16 +150,6 @@ public class BankImpl implements IBank {
 
     }
 
-    class InsufficientFundsException extends RuntimeException {
-        public InsufficientFundsException(String errorMessage) {
-            super(errorMessage);
-        }
-    };
 
-    class AccountIdException extends RuntimeException {
-        public AccountIdException(String errorMessage) {
-            super(errorMessage);
-        }
-    };
 
 }
