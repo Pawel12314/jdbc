@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="javaPS1_ASSERT_TEST" />
+        <module name="jdbc" />
       </profile>
     </annotationProcessing>
   </component>

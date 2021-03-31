@@ -5,11 +5,24 @@ public class Account {
     private String name;
     private String address;
     private BigDecimal amount;
+    private Long id;
     public Account(String name,String address)
     {
         this.name=name;
         this.address=address;
         amount = new BigDecimal(0);
+    }
+    public Account(Long id, String name,String address,BigDecimal amount)
+    {
+        this.name=name;
+        this.address=address;
+        this.id = id;
+        this.amount = amount;
+        amount = new BigDecimal(0);
+    }
+    public Account()
+    {
+
     }
     public void addMoney(BigDecimal x)
     {
@@ -30,4 +43,25 @@ public class Account {
     public BigDecimal getAmount() {
         return amount;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 }

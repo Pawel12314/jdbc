@@ -1,9 +1,11 @@
 import javax.management.BadAttributeValueExpException;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.Optional;
 
 public class BankImpl implements IBank {
     private HashMap<Long,Account> accounts = new HashMap<Long,Account>();
+
     /**
      * Tworzy nowe lub zwraca id istniejącego konta.
      *
@@ -19,10 +21,18 @@ public class BankImpl implements IBank {
             if(x>a)a=x;
         }
         //System.out.println("new id: "+a);
+        //bankDAO.addAccount(new Account(name,address));
         accounts.put(a+1,new Account(name,address));
 
         return a;
     }
+
+    @Override
+    public Optional<Account> getById(Long id) {
+        return Optional.empty();
+    }
+
+
     public int getAccountCount()
     {
         return accounts.size();
@@ -50,6 +60,7 @@ public class BankImpl implements IBank {
         throw new AccountIdException("no such account exception");
     }
 
+
     /**
      * Dodaje srodki do konta.
      *
@@ -71,6 +82,11 @@ public class BankImpl implements IBank {
             throw new AccountIdException("no such account exception");
         }
 
+    }
+
+    @Override
+    public void deleteAll() {
+        accounts.clear();
     }
 
     /**

@@ -1,4 +1,5 @@
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public interface IBank {
     /**
@@ -8,8 +9,9 @@ public interface IBank {
      * @param address adres własciciela
      * @return id utworzonego lub istniejacego konta.
      */
-    Long createAccount(String name, String address);
 
+    Long createAccount(String name, String address);
+    Optional<Account> getById(Long id);
     /**
      * Znajduje identyfikator konta.
      *
@@ -26,8 +28,9 @@ public interface IBank {
      * @param amount srodki
      * @throws IBank.AccountIdException gdy id konta jest nieprawidlowe
      */
-    void deposit(Long id, BigDecimal amount);
 
+    void deposit(Long id, BigDecimal amount);
+    void deleteAll();
     /**
      * Zwraca ilosc srodkow na koncie.
      *

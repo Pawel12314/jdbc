@@ -1,11 +1,12 @@
 import java.io.Console;
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class javaPS1_ASSERT_TEST {
-    BankImpl b;
+    IBank b;
     Console cons;
     Scanner scan = new Scanner(System.in);
     private final static Logger log = getLogger();
@@ -66,8 +67,9 @@ public class javaPS1_ASSERT_TEST {
     {
         String nametocreate = readLine();
         String addrtocreate = readLine();
-        b.createAccount(nametocreate,addrtocreate);
-        logInfo("dodano konto:"+nametocreate+" "+addrtocreate);
+        Long id =b.createAccount(nametocreate,addrtocreate);
+
+        logInfo("dodano konto:"+nametocreate+" "+addrtocreate+"\n\nid: "+id);
     }
     public void findAcc()
     {
@@ -84,6 +86,25 @@ public class javaPS1_ASSERT_TEST {
             logError("nie znaleziono konta-próba znalezienia konta",aie);
         }
 
+    }
+    public void getByID()
+    {
+        String id = readLine();
+        try
+        {
+            Long id_long = Long.parseLong(id);
+            Optional<Account> opt =b.getById(id_long);
+            Account a = opt.get();
+            System.out.println(a.getName()+" "+a.getAddress()+" "+a.getAmount());
+        }
+        catch(NumberFormatException nfe)
+        {
+            logError("błąd parsowania id:-pobranie danych konta",nfe);
+        }
+        catch(DataAccessException dae)
+        {
+            logError("błąd dodstępu do bazy danych przy pobraniu danych konta",dae);
+        }
     }
     public void getbalance()
     {
@@ -200,12 +221,13 @@ public class javaPS1_ASSERT_TEST {
     public void run()
     {
 
-       b= new BankImpl();
+       b= new BankImpl_DB();
         //cons=System.console();
         while(true)
         {
             System.out.println("addacc (name|address)\n"+"findacc(name|address)\n"
-                    +"deposit(id,amount)\n"+"getbalance(id)"
+                    +"getbyid(id)\n"+"getcount\n"
+                    +"deposit(id,amount)\n"+"getbalance(id)\n"
                     + "wd(id,amount)\n"+"transfer(idsrc,iddst,amount)\n");
             String line = readLine();
             switch (line)
@@ -230,6 +252,12 @@ public class javaPS1_ASSERT_TEST {
                     break;
                 case "exit":
                     return;
+                case "getbyid":
+                    getByID();
+                    break;
+                case "getcount":
+                    getcount();
+                    break;
                 default:
                     System.out.println("podano złą instrukcję");
                     break;
@@ -237,6 +265,13 @@ public class javaPS1_ASSERT_TEST {
             }
         }
     }
+
+    private void getcount() {
+        int count = b.getAccountCount();
+        System.out.println(count);
+        logInfo("requested count of accounts: "+count);
+    }
+
     public static void main(String[] args){
         javaPS1_ASSERT_TEST session = new javaPS1_ASSERT_TEST();
         session.run();

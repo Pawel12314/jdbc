@@ -1,6 +1,7 @@
 //import org.junit.jupiter.api.BeforeAll;
 //import org.junit.jupiter.api.BeforeEach;
 
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -17,11 +18,17 @@ public class BankTest {
     private String name;
     private String address;
     private BigDecimal amount;
+    @AfterMethod
+    public void after()
+    {
+        b.deleteAll();
+    }
     @BeforeMethod
     public  void before()
     {
 
-        b = new BankImpl();
+        b = new BankImpl_DB();
+        b.deleteAll();
         name="Adam";
         address="Ulica1";
         b.createAccount(name,address);
